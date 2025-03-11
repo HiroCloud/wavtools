@@ -1034,11 +1034,33 @@ registerProcessor('audio_processor', AudioProcessor);
         throw new Error("Could not request user media");
       }
       try {
-        const config = { audio: true };
+        const config = {
+          audio: {
+            echoCancellation: true,
+            noiseSuppression: true,
+            autoGainControl: true,
+            // Chrome-specific constraints
+            googEchoCancellation: true,
+            googNoiseSuppression: true,
+            googHighpassFilter: true,
+            googAutoGainControl: true,
+            googAutoGainControl2: true,
+            googAudioMirroring: false,
+            googTypingNoiseDetection: true
+          }
+        };
         if (deviceId) {
-          config.audio = { deviceId: { exact: deviceId } };
+          config.audio.deviceId = { exact: deviceId };
         }
         this.stream = await navigator.mediaDevices.getUserMedia(config);
+        console.log("stream");
+        if (true) {
+          const audioTrack = this.stream.getAudioTracks()[0];
+          if (audioTrack) {
+            const settings = audioTrack.getSettings();
+            console.log("Applied audio constraints:", settings);
+          }
+        }
       } catch (err) {
         throw new Error("Could not start media stream");
       }
