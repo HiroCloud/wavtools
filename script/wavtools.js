@@ -1039,6 +1039,7 @@ registerProcessor('audio_processor', AudioProcessor);
             echoCancellation: true,
             noiseSuppression: true,
             autoGainControl: true,
+            voiceIsolation: true,
             // Chrome-specific constraints
             googEchoCancellation: true,
             googNoiseSuppression: true,
