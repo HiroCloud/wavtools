@@ -1054,12 +1054,10 @@ registerProcessor('audio_processor', AudioProcessor);
           config.audio.deviceId = { exact: deviceId };
         }
         this.stream = await navigator.mediaDevices.getUserMedia(config);
-        console.log("stream");
         if (true) {
           const audioTrack = this.stream.getAudioTracks()[0];
           if (audioTrack) {
             const settings = audioTrack.getSettings();
-            console.log("Applied audio constraints:", settings);
           }
         }
       } catch (err) {
